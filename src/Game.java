@@ -1,3 +1,5 @@
+// Obed and Aldenis
+
 public class Game
 {
   private Grid grid;
@@ -36,14 +38,29 @@ public class Game
   public void handleKeyPress()
   {
     int key = grid.checkLastKeyPressed();
-    if(key == 40){
+    if(key == 38 && userRow > 0){
+      grid.setImage(new Location(userRow, 0), null);
+      userRow--;
       grid.setImage(new Location(userRow, 0), "user.gif");
+
+    }else if(key == 40 && userRow < grid.getNumRows() - 1){
+      grid.setImage(new Location(userRow, 0), null);
+      userRow++;
+      grid.setImage(new Location(userRow, 0), "user.gif");
+
     }
-   
   }
   
   public void populateRightEdge()
   {
+    int row = (int) (Math.random()*5);
+    String file = "";
+    int pop = (int) (Math.random()*2);
+    if(pop == 0)
+      file = "get.gif";
+    else
+      file = "avoid.gif";
+    grid.setImage(new Location(row,grid.getNumCols()-1),file);
   }
   
   public void scrollLeft()
@@ -72,7 +89,8 @@ public class Game
   public static void test()
   {
     Game game = new Game();
-    game.play();
+    //game.play();
+    game.populateRightEdge();
   }
   
   public static void main(String[] args)
