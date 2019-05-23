@@ -35,6 +35,11 @@ public class Game
   
   public void handleKeyPress()
   {
+    int key = grid.checkLastKeyPressed();
+    if(key == 40){
+      grid.setImage(new Location(userRow, 0), "user.gif");
+    }
+   
   }
   
   public void populateRightEdge()
