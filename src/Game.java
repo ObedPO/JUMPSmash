@@ -54,7 +54,7 @@ public class Game
   public void populateRightEdge()
   {
     int row = (int) (Math.random()*5);
-    String file = "";
+    String file;
     int pop = (int) (Math.random()*2);
     if(pop == 0)
       file = "get.gif";
@@ -65,6 +65,16 @@ public class Game
   
   public void scrollLeft()
   {
+    for(int row = 0; row < grid.getNumRows(); row++){
+      for(int col = 0; col < grid.getNumCols(); col++){
+        Location loc = new Location(row,col);
+        if(grid.getImage(loc) != null && !grid.getImage(loc).equals("user.gif")){
+          if(col != 0)
+            grid.setImage(new Location(row,col-1),grid.getImage(loc));
+          grid.setImage(loc,null);
+        }
+      }
+    }
   }
   
   public void handleCollision(Location loc)
@@ -89,8 +99,8 @@ public class Game
   public static void test()
   {
     Game game = new Game();
-    //game.play();
-    game.populateRightEdge();
+    game.play();
+    //game.populateRightEdge();
   }
   
   public static void main(String[] args)
