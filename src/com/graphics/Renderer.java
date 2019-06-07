@@ -1,11 +1,9 @@
 package com.graphics;
 
-import java.awt.Frame;
-import java.awt.Canvas;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.Toolkit;
+
 import com.game.Game;
 
 public class Renderer {
@@ -19,8 +17,8 @@ public class Renderer {
     private static final int GAME_WIDTH = 300;
     private static final int GAME_HEIGHT = 250;
 
-    private static final int gameWidth = 0;
-    private static final int gameHeight = 0;
+    private static int gameWidth = 0;
+    private static int gameHeight = 0;
     public static void getBestSize(){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
@@ -37,6 +35,26 @@ public class Renderer {
                 done = true;
             }
         }
+
+        int xDiff = screenSize.width - canvasWidth;
+        int yDiff = screenSize.height - canvasHeight;
+        int factor = canvasWidth / GAME_WIDTH;
+
+        gameWidth = canvasWidth / factor + xDiff / factor;
+        gameHeight = canvasHeight / factor + yDiff / factor;
+
+       canvasWidth = gameWidth + factor;
+       canvasHeight = gameHeight + factor;
+
+    }
+
+    private static void makeFullscreen(){
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = env.getDefaultScreenDevice();
+
+        if(gd.isFullScreenSupported()){
+            gd.setFullScreenWindow(frame);
+        }
     }
 
     public static void init(){
@@ -49,6 +67,8 @@ public class Renderer {
         frame.pack();
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+
+        makeFullscreen();
 
         frame.addWindowListener(new WindowAdapter(){
             public  void  windowClosing(WindowEvent e){
