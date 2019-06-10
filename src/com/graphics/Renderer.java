@@ -53,6 +53,7 @@ public class Renderer {
         GraphicsDevice gd = env.getDefaultScreenDevice();
 
         if(gd.isFullScreenSupported()){
+            //frame.setUndecorated(true);
             gd.setFullScreenWindow(frame);
         }
     }
@@ -77,5 +78,10 @@ public class Renderer {
         });
 
         frame.setVisible(true);
+        startRendering();
+    }
+
+    private static void startRendering(){
+
     }
 }
