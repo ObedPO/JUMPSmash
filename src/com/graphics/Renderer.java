@@ -16,11 +16,12 @@ public class Renderer {
     private static int canvasWidth = 0;
     private static int canvasHeight = 0;
 
-    private static final int GAME_WIDTH = 300;
-    private static final int GAME_HEIGHT = 250;
+    private static final int GAME_WIDTH = 400;
+    private static final int GAME_HEIGHT = 300;
 
-    private static final int gameWidth = 0;
-    private static final int gameHeight = 0;
+    private static int gameWidth = 0;
+    private static int gameHeight = 0;
+
     public static void getBestSize(){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
@@ -37,6 +38,13 @@ public class Renderer {
                 done = true;
             }
         }
+
+        int xDiff = screenSize.width - canvasWidth;
+        int yDiff = screenSize.height - canvasHeight;
+        int factor = canvasWidth / GAME_WIDTH;
+
+        gameWidth = canvasWidth/factor + xDiff/factor;
+        gameHeight = canvasHeight/factor + yDiff/factor;
     }
 
     public static void init(){
