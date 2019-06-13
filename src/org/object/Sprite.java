@@ -1,5 +1,6 @@
 package org.object;
 
+import com.game.Game;
 import com.graphics.Renderer;
 import org.input.Input;
 import java.awt.Graphics;
@@ -11,7 +12,9 @@ public class Sprite {
 
     public float posX = 0;
     public float posY = 0;
-
+    private double vi =0;
+    private long lastTime= System.nanoTime();
+    private double g =0;
     public BufferedImage image = null;
 
     public Sprite(float posX, float posY, String pic){
@@ -28,7 +31,7 @@ public class Sprite {
 
     public void update(float deltaTime){
         handleKeys();
-        handleGravity(deltaTime);
+        handleGravity();
 
 
     }
@@ -36,9 +39,7 @@ public class Sprite {
 
     public void handleKeys(){
         int speed = 1;
-        if(Input.getKey(KeyEvent.VK_W)){
-            posY -= speed;
-        }
+
 
         if(Input.getKey(KeyEvent.VK_S)){
             posY += speed;
@@ -51,12 +52,39 @@ public class Sprite {
         if(Input.getKey(KeyEvent.VK_D)){
             posX += speed;
         }
+
+        if(Input.getKey((KeyEvent.VK_Q))){
+            Game.quit();
+        }
+
     }
 
-    public void handleGravity(float deltaTime){
+    public void handleGravity(){
         //position = velocityI* time + 1/2* gravityA * time squared
+        //long lastTime= 0;
+        float t = (System.nanoTime() -  lastTime) / 1000000000.0f;
 
-            posY += (0.5) * (9.81* (Math.pow(deltaTime,2)));
+
+
+        if(Input.getKey(KeyEvent.VK_W)){
+            vi = -50;
+            g= 1.0;
+            lastTime = System.nanoTime();
+        } else if (Input.getKey(KeyEvent.VK_S)){
+            vi = 0;
+            g=0.0;
+        }
+
+
+        int var = 2;
+        System.out.println("PosY: "+  posY + "\tt: " + t + "\tg: " + g + "\tvar: "+var);
+
+        posY = (float) (300.0 + vi*t +  (g * (Math.pow(t*var,2))));
+        if(posY>=300){
+            posY = 300;
+        }
+
+
 
     }
 

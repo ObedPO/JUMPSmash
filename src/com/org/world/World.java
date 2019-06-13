@@ -14,7 +14,8 @@ public class World {
     public static void update(){
 
         float deltaTime = (System.nanoTime() -  lastTime) / 1000000000.0f;
-        lastTime = System.nanoTime();
+        //int realTime = (int) System.currentTimeMillis();
+
         for(Sprite sprite : currentWorld.sprites){
             sprite.update(deltaTime);
         }

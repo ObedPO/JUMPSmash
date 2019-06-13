@@ -13,7 +13,7 @@ public class Game{
         Renderer.init();
 
         World.currentWorld = new World();
-        World.currentWorld.sprites.add(new Sprite(100,100, "/com/resources/images/goku.png"));
+        World.currentWorld.sprites.add(new Sprite(300,300, "/com/resources/images/goku.png"));
         
     }
 
