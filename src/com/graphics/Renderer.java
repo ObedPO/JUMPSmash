@@ -3,8 +3,15 @@ package com.graphics;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.VolatileImage;
+import java.io.IOException;
 
 import com.game.Game;
+import com.org.world.World;
+import org.input.Input;
+
+import javax.imageio.ImageIO;
 
 public class Renderer {
 
@@ -14,8 +21,8 @@ public class Renderer {
     private static int canvasWidth = 0;
     private static int canvasHeight = 0;
 
-    private static final int GAME_WIDTH = 300;
-    private static final int GAME_HEIGHT = 250;
+    private static final int GAME_WIDTH = 700;
+    private static final int GAME_HEIGHT = 550;
 
     private static int gameWidth = 0;
     private static int gameHeight = 0;
@@ -72,16 +79,61 @@ public class Renderer {
         makeFullscreen();
 
         frame.addWindowListener(new WindowAdapter(){
-            public  void  windowClosing(WindowEvent e){
+            public void windowClosing(WindowEvent e){
                 Game.quit();
             }
         });
 
         frame.setVisible(true);
+
+        canvas.addKeyListener(new Input());
+
         startRendering();
     }
 
     private static void startRendering(){
+        Thread thread = new Thread(){
+            public void run(){
 
+                GraphicsConfiguration gc = canvas.getGraphicsConfiguration();
+                VolatileImage vImage = gc.createCompatibleVolatileImage(gameWidth,gameHeight);
+
+                while(true){
+                    if(vImage.validate(gc) == VolatileImage.IMAGE_INCOMPATIBLE){
+                        vImage = gc.createCompatibleVolatileImage(gameWidth,gameHeight);
+                    }
+                    Graphics g = vImage.getGraphics();
+
+                    g.setColor(Color.black);
+                    g.fillRect(0,0,gameWidth,gameHeight);
+
+                    //RENDER STUFF
+                    World.update();
+                    World.render(g);
+
+
+                    g.dispose();
+
+                    g = canvas.getGraphics();
+                    g.drawImage(vImage,0,0,canvasWidth,canvasHeight,null);
+
+                    g.dispose();
+
+                }
+
+            }
+        };
+        thread.setName("Rendering Thread");
+        thread.start();
     }
+
+    public static BufferedImage loadImage (String path)throws IOException {
+        BufferedImage rawImage = ImageIO.read(Renderer.class.getResource(path));
+        BufferedImage finalImage = canvas.getGraphicsConfiguration().createCompatibleImage(rawImage.getWidth(), rawImage.getHeight(),rawImage.getTransparency());
+
+        finalImage.getGraphics().drawImage(rawImage, 0, 0, rawImage.getWidth(), rawImage.getHeight(),null);
+
+        return finalImage;
+    }
+
 }
