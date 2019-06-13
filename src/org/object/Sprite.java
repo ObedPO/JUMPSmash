@@ -1,4 +1,4 @@
-package com.Object;
+package org.object;
 
 import java.awt.Graphics;
 

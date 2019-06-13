@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Game",
+            "request": "launch",
+            "mainClass": "com.game.Game",
+            "projectName": "CrimsonInferno"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Game",
+            "request": "launch",
+            "mainClass": "Game"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Game",
+            "request": "launch",
+            "mainClass": "Game",
+            "projectName": "CrimsonInferno"
+        }
+    ]
+}
