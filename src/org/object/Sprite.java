@@ -38,7 +38,7 @@ public class Sprite {
 
 
     public void handleKeys(){
-        int speed = 1;
+        double speed = 0.25;
 
 
         if(Input.getKey(KeyEvent.VK_S)){
@@ -64,11 +64,9 @@ public class Sprite {
         //long lastTime= 0;
         float t = (System.nanoTime() -  lastTime) / 1000000000.0f;
 
-
-
         if(Input.getKey(KeyEvent.VK_W)){
-            vi = -50;
-            g= 1.0;
+            vi = -200;
+            g= 16.0;
             lastTime = System.nanoTime();
         } else if (Input.getKey(KeyEvent.VK_S)){
             vi = 0;
