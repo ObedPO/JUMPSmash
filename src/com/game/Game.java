@@ -1,10 +1,13 @@
-package com.game;
+
+        package com.game;
 
 
 
 import com.graphics.Renderer;
-import com.org.test.TestSprite;
+
 import com.org.world.World;
+import org.object.Platform;
+import org.object.Player;
 import org.object.Sprite;
 
 
@@ -13,8 +16,9 @@ public class Game{
         Renderer.init();
 
         World.currentWorld = new World();
-        World.currentWorld.sprites.add(new Sprite(300,300, "/com/resources/images/goku.png"));
-        
+        World.currentWorld.addSprite(new Player(50,100));
+        World.currentWorld.addSprite(new Platform(100,200,300,20));
+
     }
 
     public static void quit(){

@@ -24,8 +24,14 @@ public class Renderer {
     private static final int GAME_WIDTH = 400;
     private static final int GAME_HEIGHT = 300;
 
-    private static int gameWidth = 0;
-    private static int gameHeight = 0;
+    public static int gameWidth = 0;
+    public static int gameHeight = 0;
+
+    private static int targetFPS = 60;
+    private static int targetTime = 1000000000 / targetFPS;
+
+    public static float camX = 0;
+    public static float camY = 0;
 
     public static void getBestSize(){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -84,6 +90,8 @@ public class Renderer {
                 VolatileImage vImage = gc.createCompatibleVolatileImage(gameWidth,gameHeight);
 
                 while(true){
+                    long startTime = System.nanoTime();
+
                     if(vImage.validate(gc) == VolatileImage.IMAGE_INCOMPATIBLE){
                         vImage = gc.createCompatibleVolatileImage(gameWidth,gameHeight);
                     }
@@ -92,8 +100,11 @@ public class Renderer {
                     g.setColor(Color.black);
                     g.fillRect(0,0,gameWidth,gameHeight);
 
-                    //RENDER STUFF
+                    //UPDATE STUFF
                     World.update();
+                    Input.finishedInput();
+
+                    //RENDER STUFF
                     World.render(g);
 
 
@@ -104,6 +115,15 @@ public class Renderer {
 
                     g.dispose();
 
+                    long totalTime = System.nanoTime() - startTime;
+
+                    if(totalTime < targetTime ){
+                        try {
+                            Thread.sleep((targetTime - totalTime) / 1000000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
 
             }
