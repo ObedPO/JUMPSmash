@@ -5,46 +5,47 @@ import com.graphics.Renderer;
 import com.org.world.World;
 import org.input.Input;
 
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-public class Player extends Mob {
+public class PlayerTwo extends Mob {
 
     private float velocityY =0;
     private float gravity = 300.0f;
     private float jumpHeight = 50;
+    private int health = 100;
 
-    private int direction = 1;
+    private int direction = 1; //1 = right, -1 = left
 
-    public Player(float posX, float posY) {
+    public PlayerTwo(float posX, float posY) {
         super(posX, posY);
 
         width = 47;
         height = 49;
-        runSpeed = 100;
+
 
         Animation anim = new Animation();
         try {
-            anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
+            anim.images.add(Renderer.loadImage("/com/resources/images/naruto.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         animations = new Animation[]{
-        anim
+                anim
         };
 
     }
 
-    public void update(float deltaTime){
-    float moveX = 0;
 
-    if(Input.getKey(KeyEvent.VK_A)){
-        moveX -= runSpeed;
-    }
-        if(Input.getKey(KeyEvent.VK_D)){
+    public void update(float deltaTime){
+        float moveX = 0;
+
+        if(Input.getKey(KeyEvent.VK_LEFT)){
+            moveX -= runSpeed;
+        }
+        if(Input.getKey(KeyEvent.VK_RIGHT)){
             moveX += runSpeed;
         }
 
@@ -56,10 +57,10 @@ public class Player extends Mob {
             direction = -1;
         }
 
-         velocityY += gravity * deltaTime;
+        velocityY += gravity * deltaTime;
 
         if(doesCollide(posX,posY + 1)) {
-            if (Input.getKeyDown(KeyEvent.VK_W)) {
+            if (Input.getKeyDown(KeyEvent.VK_UP)) {
                 velocityY = (float) -Math.sqrt(2 * jumpHeight * gravity);
             }
         }
@@ -74,22 +75,22 @@ public class Player extends Mob {
             velocityY -= velocityY;
         }
 
-        if(Input.getKeyDown(KeyEvent.VK_SPACE)){
-            Bullet bullet = new Bullet(posX,posY,direction);
-            World.currentWorld.addSprite(bullet);
 
-        }
+        posX+= moveX * deltaTime;
+        posY+=  velocityY * deltaTime;
 
-    posX+= moveX * deltaTime;
-    posY+=  velocityY * deltaTime;
 
-    Renderer.camX = 100;
-    Renderer.camY = 100;
+        //Renderer.camX = posX;
+        //Renderer.camY = 100;
 
     }
 
-
-
+    public void takeDamage(float damage){
+        health-= damage;
+        if(health<= 0){
+            World.currentWorld.removeSprite(this);
+        }
+    }
 
 
 }

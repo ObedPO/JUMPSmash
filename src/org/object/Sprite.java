@@ -3,13 +3,15 @@ package org.object;
 import com.game.Game;
 import com.graphics.Animation;
 import com.graphics.Renderer;
+import com.org.world.World;
 import org.input.Input;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
-    public class Sprite {
+public class Sprite {
 
         public float posX = 0;
         public float posY = 0;
@@ -36,7 +38,7 @@ import java.io.IOException;
 
         public void update(float deltaTime){
             handleKeys();
-            //handleGravity();
+
 
 
         }
@@ -46,49 +48,13 @@ import java.io.IOException;
             double speed = 0.25;
 
 
-//            if(Input.getKey(KeyEvent.VK_S)){
-//                posY += speed;
-//            }
-//
-//            if(Input.getKey(KeyEvent.VK_A)){
-//                posX -= speed;
-//            }
-//
-//            if(Input.getKey(KeyEvent.VK_D)){
-//                posX += speed;
-//            }
 
             if(Input.getKey((KeyEvent.VK_Q))){
                 Game.quit();
             }
 
         }
-        /*public void handleGravity(){
-            //position = velocityI* time + 1/2* gravityA * time squared
-            //long lastTime= 0;
-            float t = (System.nanoTime() -  lastTime) / 1000000000.0f;
 
-            if(Input.getKey(KeyEvent.VK_W)){
-                vi = -200;
-                g= 16.0;
-                lastTime = System.nanoTime();
-            } else if (Input.getKey(KeyEvent.VK_S)){
-                vi = 0;
-                g=0.0;
-            }
-
-
-            int var = 2;
-            System.out.println("PosY: "+  posY + "\tt: " + t + "\tg: " + g + "\tvar: "+var);
-
-            posY = (float) (300.0 + vi*t +  (g * (Math.pow(t*var,2))));
-            if(posY>=300){
-                posY = 300;
-            }
-
-
-
-        }*/
 
         public void render(Graphics g){
 
@@ -113,4 +79,62 @@ import java.io.IOException;
 
             g.drawImage(image, realX, realY, image.getWidth(), image.getHeight(), null);
         }
+
+
+        protected boolean doesCollide(float x, float y){
+            float myLeft = x - width / 2;
+            float myRight = x + width / 2;
+            float myUp = y - height / 2;
+            float myDown = y + height / 2;
+
+            for(Sprite sprite : World.currentWorld.sprites){
+                if(sprite == this || !sprite.isSolid){
+                    continue;
+                }
+
+
+                float otherLeft = sprite.posX - sprite.width / 2;
+                float otherRight = sprite.posX + sprite.width / 2;
+                float otherUp = sprite.posY - sprite.height / 2;
+                float otherDown = sprite.posY + sprite.height / 2;
+
+                if(myLeft< otherRight && myRight> otherLeft && myDown > otherUp && myUp < otherDown ){
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        protected Sprite[] getColliders(float x, float y){
+            ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+
+
+            float myLeft = x - width / 2;
+            float myRight = x + width / 2;
+            float myUp = y - height / 2;
+            float myDown = y + height / 2;
+
+            for(Sprite sprite : World.currentWorld.sprites){
+                if(sprite == this || !sprite.isSolid){
+                    continue;
+                }
+
+
+                float otherLeft = sprite.posX - sprite.width / 2;
+                float otherRight = sprite.posX + sprite.width / 2;
+                float otherUp = sprite.posY - sprite.height / 2;
+                float otherDown = sprite.posY + sprite.height / 2;
+
+                if(myLeft< otherRight && myRight> otherLeft && myDown > otherUp && myUp < otherDown ){
+                    sprites.add(sprite);
+                }
+
+            }
+
+            Sprite[] spriteArray = new Sprite[sprites.size()];
+            return sprites.toArray(spriteArray);
+        }
+
+
     }

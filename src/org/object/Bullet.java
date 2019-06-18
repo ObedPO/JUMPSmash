@@ -3,6 +3,7 @@ package org.object;
 
 import com.graphics.Animation;
 import com.graphics.Renderer;
+import com.org.world.World;
 
 import java.awt.*;
 import java.io.IOException;
@@ -30,16 +31,16 @@ public class Bullet extends Sprite {
             e.printStackTrace();
         }
 
-        /*Animation anim2 = new Animation();
+        Animation anim2 = new Animation();
         try {
             anim2.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartTwoLeft.png"));
             anim2.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartOneLeft.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         animations = new Animation[]{
-                anim
+                anim,anim2
         };
     }
 
@@ -50,12 +51,27 @@ public class Bullet extends Sprite {
 
         posX += moveX * deltaTime;
 
-        /*if(direction > 0){
+        if(direction > 0){
             currentAnimation = 0;
         }
         if(direction < 0){
             currentAnimation = 1;
-        }*/
+        }
+
+        Sprite[] colliders = getColliders(posX,posY);
+
+        if(colliders.length > 0){
+            for(Sprite sprite : colliders){
+                if(sprite instanceof PlayerTwo){
+                    PlayerTwo playerTwo = (PlayerTwo) sprite;
+                    playerTwo.takeDamage(damage);
+                    World.currentWorld.removeSprite(this);
+
+                }
+            }
+
+        }
+
     }
 
 
