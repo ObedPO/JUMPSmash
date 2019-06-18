@@ -23,6 +23,7 @@ public class PlayerTwo extends Mob {
 
         width = 47;
         height = 49;
+        runSpeed = 100;
 
 
         Animation anim = new Animation();
