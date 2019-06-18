@@ -5,9 +5,11 @@ import com.graphics.Renderer;
 import com.org.world.World;
 import org.input.Input;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.security.Key;
 
 public class PlayerTwo extends Mob {
 
@@ -15,6 +17,9 @@ public class PlayerTwo extends Mob {
     private float gravity = 300.0f;
     private float jumpHeight = 50;
     private int health = 100;
+
+    private boolean right = false;
+    private boolean left = true;
 
     private int direction = 1; //1 = right, -1 = left
 
@@ -48,6 +53,8 @@ public class PlayerTwo extends Mob {
         if (Input.getKey(KeyEvent.VK_LEFT)) {
             moveX -= runSpeed;
             direction = -1;
+            left = true;
+            right = false;
 
             try {
                 anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/naruto.png"));
@@ -58,6 +65,8 @@ public class PlayerTwo extends Mob {
         if (Input.getKey(KeyEvent.VK_RIGHT)) {
             moveX += runSpeed;
             direction = 1;
+            right = true;
+            left = false;
 
             try {
                 anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRight.png"));
@@ -65,6 +74,49 @@ public class PlayerTwo extends Mob {
                 e.printStackTrace();
             }
         }
+//        Timer time = new Timer(5,Inpu.);
+//        if(Input.getKeyDown(KeyEvent.VK_SLASH) && ) {
+//            //long start = System.currentTimeMillis();
+//            //long timePassed = System.currentTimeMillis() - start;
+//            //long seconds = timePassed/1000;
+//                try {
+//                    if (left)
+//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoCharge.png"));
+//                    else
+//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoChargeRight.png"));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    if(left)
+//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasen.png"));
+//                    else
+//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasenRight.png"));
+//                } catch (IOException e){
+//                    e.printStackTrace();
+//                }
+//        }
+////        try {
+////            if(left)
+////                anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasen.png"));
+////            else
+////                anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasenRight.png"));
+////        } catch (IOException e){
+////            e.printStackTrace();
+////        }
+//                //long start2 = System.currentTimeMillis();
+//                //long timePassed2 = System.currentTimeMillis() - start;
+//                //long seconds2 = timePassed/1000;
+//                /*if(seconds == 3){
+//                    try {
+//                        if(left)
+//                            anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/naruto.png"));
+//                        else
+//                            anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRight.png"));
+//                    } catch (IOException e){
+//                        e.printStackTrace();
+//                    }
+//                }*/
 
         if(moveX > 0){
             //direction = 1;
