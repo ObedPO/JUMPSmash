@@ -48,17 +48,6 @@ public class Player extends Mob {
 
 
 
-        //This is the default Sprite
-
-//        try {
-//            anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-//        animations = new Animation[]{
-//                anim
-//        };
 
     float moveX = 0;
 
@@ -87,29 +76,6 @@ public class Player extends Mob {
             }
         }
 
-        if(moveX > 0){
-//
-//            if(direction == 1) {
-//                try {
-//                    anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-        }
-
-//        if(moveX < 0){
-//
-//            if(direction == -1) {
-//                try {
-//                    anim.images.add(Renderer.loadImage("/com/resources/images/gokuLeft.png"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        }
 
          velocityY += gravity * deltaTime;
 

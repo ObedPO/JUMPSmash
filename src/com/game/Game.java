@@ -30,7 +30,7 @@ import org.Music.WavPlayer;
         World.currentWorld.addSprite(new Player(-60,100));
 
         World.currentWorld.addSprite(new Platform(50,200,400,20));
-        //World.currentWorld.addSprite(new Platform(-60,130,100,10));
+        World.currentWorld.addSprite(new Platform(40,150,100,5));
 
         World.currentWorld.addSprite(new PlayerTwo(150,100));
         WavPlayer song = new WavPlayer("com/resources/images/NarutoMusic.wav");

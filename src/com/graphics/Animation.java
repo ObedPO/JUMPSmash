@@ -7,7 +7,7 @@ public class Animation {
 
     public int  currentImage = 0;
 
-    public int fps = 12;
+    public int fps = 60;
 
     private long lastTime = 0;
 
