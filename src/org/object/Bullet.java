@@ -27,6 +27,7 @@ public class Bullet extends Sprite {
             anim.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartOne.png"));
             anim.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartTwo.png"));
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }

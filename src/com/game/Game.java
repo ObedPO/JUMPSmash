@@ -6,13 +6,16 @@
 import com.graphics.Renderer;
 
 import com.org.world.World;
+import org.input.Input;
 import org.object.Platform;
 import org.object.Player;
 import org.object.PlayerTwo;
 import org.object.Sprite;
 
+import java.awt.event.KeyEvent;
 
-public class Game{
+
+        public class Game{
     public static void main (String[] args){
         Renderer.init();
 

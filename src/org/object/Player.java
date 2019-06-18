@@ -18,6 +18,8 @@ public class Player extends Mob {
 
     private int direction = 1;
 
+
+
     public Player(float posX, float posY) {
         super(posX, posY);
 
@@ -25,7 +27,16 @@ public class Player extends Mob {
         height = 49;
         runSpeed = 100;
 
+
+
+    }
+
+    public void update(float deltaTime){
         Animation anim = new Animation();
+
+
+        //This is the default Sprite
+
         try {
             anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
         } catch (IOException e) {
@@ -33,12 +44,9 @@ public class Player extends Mob {
         }
 
         animations = new Animation[]{
-        anim
+                anim
         };
 
-    }
-
-    public void update(float deltaTime){
     float moveX = 0;
 
     if(Input.getKey(KeyEvent.VK_A)){
@@ -50,10 +58,24 @@ public class Player extends Mob {
 
         if(moveX > 0){
             direction = 1;
+            try {
+                anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
 
         if(moveX < 0){
             direction = -1;
+
+            try {
+                anim.images.add(Renderer.loadImage("/com/resources/images/gokuLeft.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
 
          velocityY += gravity * deltaTime;
