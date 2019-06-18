@@ -18,7 +18,7 @@ public class Player extends Mob {
 
     private int direction = 1;
 
-
+    Animation anim = new Animation();
 
     public Player(float posX, float posY) {
         super(posX, posY);
@@ -26,16 +26,6 @@ public class Player extends Mob {
         width = 47;
         height = 49;
         runSpeed = 100;
-
-
-
-    }
-
-    public void update(float deltaTime){
-        Animation anim = new Animation();
-
-
-        //This is the default Sprite
 
         try {
             anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
@@ -47,36 +37,70 @@ public class Player extends Mob {
                 anim
         };
 
+    }
+
+    public void update(float deltaTime){
+
+
+
+        //This is the default Sprite
+
+//        try {
+//            anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        animations = new Animation[]{
+//                anim
+//        };
+
     float moveX = 0;
 
-    if(Input.getKey(KeyEvent.VK_A)){
-        moveX -= runSpeed;
-    }
-        if(Input.getKey(KeyEvent.VK_D)){
-            moveX += runSpeed;
-        }
-
-        if(moveX > 0){
-            direction = 1;
-            try {
-                anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-        if(moveX < 0){
+        if (Input.getKey(KeyEvent.VK_A)) {
+            moveX -= runSpeed;
             direction = -1;
 
             try {
-                anim.images.add(Renderer.loadImage("/com/resources/images/gokuLeft.png"));
+                anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/gokuLeft.png"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
+        if (Input.getKey(KeyEvent.VK_D)) {
+            moveX += runSpeed;
+            direction = 1;
+
+            try {
+                anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/goku.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(moveX > 0){
+//
+//            if(direction == 1) {
+//                try {
+//                    anim.images.add(Renderer.loadImage("/com/resources/images/goku.png"));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+        }
+
+//        if(moveX < 0){
+//
+//            if(direction == -1) {
+//                try {
+//                    anim.images.add(Renderer.loadImage("/com/resources/images/gokuLeft.png"));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        }
 
          velocityY += gravity * deltaTime;
 

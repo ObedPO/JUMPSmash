@@ -21,6 +21,7 @@ import java.awt.event.KeyEvent;
 
         World.currentWorld = new World();
         World.currentWorld.addSprite(new Player(-30,100));
+        //World.currentWorld.addSprite(new Player(150,100,"/com/resources/images/naruto.png",2));
         World.currentWorld.addSprite(new Platform(50,200,300,20));
         World.currentWorld.addSprite(new PlayerTwo(150,100));
 

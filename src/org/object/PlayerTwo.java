@@ -18,6 +18,8 @@ public class PlayerTwo extends Mob {
 
     private int direction = 1; //1 = right, -1 = left
 
+    Animation anim = new Animation();
+
     public PlayerTwo(float posX, float posY) {
         super(posX, posY);
 
@@ -26,7 +28,7 @@ public class PlayerTwo extends Mob {
         runSpeed = 100;
 
 
-        Animation anim = new Animation();
+
         try {
             anim.images.add(Renderer.loadImage("/com/resources/images/naruto.png"));
         } catch (IOException e) {
@@ -43,19 +45,33 @@ public class PlayerTwo extends Mob {
     public void update(float deltaTime){
         float moveX = 0;
 
-        if(Input.getKey(KeyEvent.VK_LEFT)){
+        if (Input.getKey(KeyEvent.VK_LEFT)) {
             moveX -= runSpeed;
+            direction = -1;
+
+            try {
+                anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/naruto.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        if(Input.getKey(KeyEvent.VK_RIGHT)){
+        if (Input.getKey(KeyEvent.VK_RIGHT)) {
             moveX += runSpeed;
+            direction = 1;
+
+            try {
+                anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRight.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         if(moveX > 0){
-            direction = 1;
+            //direction = 1;
         }
 
         if(moveX < 0){
-            direction = -1;
+            //direction = -1;
         }
 
         velocityY += gravity * deltaTime;
