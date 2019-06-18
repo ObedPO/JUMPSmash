@@ -1,5 +1,4 @@
-
-        package com.game;
+package com.game;
 
 
 
@@ -11,8 +10,16 @@ import org.object.Platform;
 import org.object.Player;
 import org.object.PlayerTwo;
 import org.object.Sprite;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.Music.WavPlayer;
 
 
         public class Game{
@@ -24,6 +31,9 @@ import java.awt.event.KeyEvent;
         //World.currentWorld.addSprite(new Player(150,100,"/com/resources/images/naruto.png",2));
         World.currentWorld.addSprite(new Platform(50,200,300,20));
         World.currentWorld.addSprite(new PlayerTwo(150,100));
+        WavPlayer song = new WavPlayer("com/resources/images/NarutoMusic.wav");
+
+
 
 
     }
@@ -31,4 +41,6 @@ import java.awt.event.KeyEvent;
     public static void quit(){
         System.exit(0);
     }
-}
+
+
+        }
