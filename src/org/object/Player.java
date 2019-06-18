@@ -16,6 +16,11 @@ public class Player extends Mob {
     private float gravity = 300.0f;
     private float jumpHeight = 50;
 
+    private boolean left= false;
+    private boolean right = true;
+
+    private int health = 100;
+
     private int direction = 1;
 
     Animation anim = new Animation();
@@ -60,6 +65,8 @@ public class Player extends Mob {
         if (Input.getKey(KeyEvent.VK_A)) {
             moveX -= runSpeed;
             direction = -1;
+            left = true;
+            right = false;
 
             try {
                 anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/gokuLeft.png"));
@@ -70,6 +77,8 @@ public class Player extends Mob {
         if (Input.getKey(KeyEvent.VK_D)) {
             moveX += runSpeed;
             direction = 1;
+            left = false;
+            right = true;
 
             try {
                 anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/goku.png"));
@@ -121,6 +130,17 @@ public class Player extends Mob {
         }
 
         if(Input.getKeyDown(KeyEvent.VK_SPACE)){
+
+            try {
+                if(left)
+                    anim.images.set(anim.currentImage,Renderer.loadImage("/com/resources/images/gokuShootLeft.png"));
+                else
+                    anim.images.set(anim.currentImage,Renderer.loadImage("/com/resources/images/gokuShoot.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
             Bullet bullet = new Bullet(posX,posY,direction);
             World.currentWorld.addSprite(bullet);
 
@@ -132,6 +152,15 @@ public class Player extends Mob {
     Renderer.camX = 100;
     Renderer.camY = 100;
 
+    }
+
+
+
+    public void takeDamage(float damage){
+        health-= damage;
+        if(health<= 0){
+            World.currentWorld.removeSprite(this);
+        }
     }
 
 

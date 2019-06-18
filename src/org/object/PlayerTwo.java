@@ -21,7 +21,7 @@ public class PlayerTwo extends Mob {
     private boolean right = false;
     private boolean left = true;
 
-    private int direction = 1; //1 = right, -1 = left
+    private int direction = -1; //1 = right, -1 = left
 
     Animation anim = new Animation();
 
@@ -75,27 +75,30 @@ public class PlayerTwo extends Mob {
             }
         }
 //        Timer time = new Timer(5,Inpu.);
-//        if(Input.getKeyDown(KeyEvent.VK_SLASH) && ) {
+        if(Input.getKeyDown(KeyEvent.VK_SLASH)) {
 //            //long start = System.currentTimeMillis();
 //            //long timePassed = System.currentTimeMillis() - start;
 //            //long seconds = timePassed/1000;
-//                try {
-//                    if (left)
-//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoCharge.png"));
-//                    else
-//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoChargeRight.png"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                try {
-//                    if(left)
-//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasen.png"));
-//                    else
-//                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasenRight.png"));
-//                } catch (IOException e){
-//                    e.printStackTrace();
-//                }
-//        }
+                /*try {
+                    if (left)
+                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoCharge.png"));
+                    else
+                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoChargeRight.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                try {
+                    if(left)
+                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasen.png"));
+                    else
+                        anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasenRight.png"));
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
+            BulletTwo bulletTwo = new BulletTwo(posX,posY,direction);
+            World.currentWorld.addSprite(bulletTwo);
+       }
 ////        try {
 ////            if(left)
 ////                anim.images.set(anim.currentImage, Renderer.loadImage("/com/resources/images/narutoRasen.png"));

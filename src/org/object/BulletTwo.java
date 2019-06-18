@@ -1,7 +1,6 @@
 package org.object;
 
 
-
 import com.graphics.Animation;
 import com.graphics.Renderer;
 import com.org.world.World;
@@ -9,14 +8,14 @@ import com.org.world.World;
 import java.awt.*;
 import java.io.IOException;
 
-public class Bullet extends Sprite {
+public class BulletTwo extends Sprite {
 
 
     public int direction = 1; //-1 = left, 1 = right
     public float speed = 300.0f;
     public float damage = 10.0f;
 
-    public Bullet(float posX, float posY, int direction) {
+    public BulletTwo(float posX, float posY, int direction) {
         super(posX, posY);
         this.direction = direction;
         width = 10;
@@ -25,8 +24,8 @@ public class Bullet extends Sprite {
 
         Animation anim = new Animation();
         try {
-            anim.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartOne.png"));
-            anim.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartTwo.png"));
+            anim.images.add(Renderer.loadImage("/com/resources/images/rasenShuriken.png"));
+            anim.images.add(Renderer.loadImage("/com/resources/images/rasenShuriken.png"));
 
 
         } catch (IOException e) {
@@ -35,8 +34,8 @@ public class Bullet extends Sprite {
 
         Animation anim2 = new Animation();
         try {
-            anim2.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartTwoLeft.png"));
-            anim2.images.add(Renderer.loadImage("/com/resources/images/KiBlastPartOneLeft.png"));
+            anim2.images.add(Renderer.loadImage("/com/resources/images/rasenShuriken.png"));
+            anim2.images.add(Renderer.loadImage("/com/resources/images/rasenShuriken.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,9 +63,9 @@ public class Bullet extends Sprite {
 
         if(colliders.length > 0){
             for(Sprite sprite : colliders){
-                if(sprite instanceof PlayerTwo){
-                    PlayerTwo playerTwo = (PlayerTwo) sprite;
-                    playerTwo.takeDamage(damage);
+                if(sprite instanceof Player){
+                    Player player = (Player) sprite;
+                    player.takeDamage(damage);
                     World.currentWorld.removeSprite(this);
 
                 }
